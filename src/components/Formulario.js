@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Criptomoneda from './Criptomoneda';
 function Formulario() {
 	const [ criptomonedas, guardarCriptomonedas ] = useState([]);
 
@@ -10,8 +10,8 @@ function Formulario() {
 
 			const resultado = await axios.get(url);
 
-            // Colocar respuesta en el estate
-            guardarCriptomonedas(resultado.data.Data);
+			// Colocar respuesta en el estate
+			guardarCriptomonedas(resultado.data.Data);
 		};
 
 		consultarAPI();
@@ -31,7 +31,11 @@ function Formulario() {
 
 			<div className="row">
 				<label>Elige tu Criptomoneda</label>
-				<select className="u-full-width" />
+				<select className="u-full-width">
+					{criptomonedas.map((criptomoneda) => (
+						<Criptomoneda key={criptomoneda.CoinInfo.Id} criptomoneda={criptomoneda} />
+					))}
+				</select>
 			</div>
 		</form>
 	);
