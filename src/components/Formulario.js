@@ -19,8 +19,22 @@ function Formulario() {
 
 		consultarAPI();
 	}, []);
+
+	// Validar que el usuario llene ambos campos
+	const cotizarMoneda = (e) => {
+		e.preventDefault();
+
+		// validar si ambos campos estan llenos
+		if (monedaCotizar === '' || criptoCotizar === '') {
+			guardarError(true);
+			return;
+		}
+		// pasar los datos al componente principal
+		guardarError(false);
+	};
+
 	return (
-		<form>
+		<form onSubmit={cotizarMoneda}>
 			<div className="row">
 				<label>Elige tu Moneda</label>
 				<select className="u-full-width" onChange={(e) => guardarMonedaCotizar(e.target.value)}>
@@ -41,6 +55,8 @@ function Formulario() {
 					))}
 				</select>
 			</div>
+
+			<input type="submit" className="button-primary u-full-width" value="Calcular" />
 		</form>
 	);
 }
